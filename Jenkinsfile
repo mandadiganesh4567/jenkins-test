@@ -10,6 +10,7 @@ pipeline {
     environment {
         ACC_id = '816600798829'
     }
+    stages{
         stage("Image Build") {
             steps{
                 sh """
@@ -35,7 +36,7 @@ pipeline {
     }
             }
         }
-}
+    }
     post {
     
         success () {

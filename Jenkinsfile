@@ -1,5 +1,6 @@
 pipeline {
     agent any 
+    options { timeout(time: 30, unit: 'SECONDS') }
     environment {
         App = 'demo'
         Projects = 'One Plus'

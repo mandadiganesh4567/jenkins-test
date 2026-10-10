@@ -33,6 +33,7 @@ pipeline {
                docker --version
                docker build -t nginx:v1 .
                docker run -d -p 8081:80 nginx:v1
+               docker ps
               """
         }
         }

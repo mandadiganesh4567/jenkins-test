@@ -31,23 +31,9 @@ pipeline {
                 sh """
                docker ps -a
                docker --version
-               """
-            }
-        }
-        stage ("Checking Env and Printing") {
-            steps {
-                sh """
-                echo "This is a ${App} and belongs to Project : ${Projects}, created by Author: ${Author}"
-                """
-            }
-        }
-        stage ("what's In") {
-            steps {
-                sh """
-                ls -la /home/ec2-user/Jenkins-agent
-                """
-            }
-        }
+               docker build -t nginx:v1 .
+               docker run -d -p 8081:80 nginx:v1
+         }      """
 
     }
     post {

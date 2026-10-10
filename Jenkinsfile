@@ -18,7 +18,7 @@ pipeline {
                docker --version
                docker build -t ganesh/docker .
                docker rm -f web || true
-               docker run -d --name web -p 8081:80 ganesh/docker 
+               docker run -d --name web -p 8082:80 ganesh/docker 
                docker ps
               """
         }

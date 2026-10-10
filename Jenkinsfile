@@ -22,9 +22,7 @@ pipeline {
         }
     }
     post {
-        always() {
-            echo " I always say Fuck You 3 times !!!"
-        }
+    
         success () {
             echo "If it success I'll say It's success MF"
         }
@@ -33,6 +31,7 @@ pipeline {
         }
         always(){
             cleanWs()
+            cho " I always say Fuck You 3 times !!!"
         }
 
     }

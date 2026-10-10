@@ -31,7 +31,9 @@ pipeline {
         failure () {
             echo "This is error please check again"
         }
-        cleanWs()
-        
+        always(){
+            cleanWs()
+        }
+
     }
 }

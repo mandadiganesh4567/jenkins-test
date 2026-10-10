@@ -44,7 +44,7 @@ pipeline {
         stage ("what's In") {
             steps {
                 sh """
-                cat /home/ec2-user/Jenkins-agent
+                ls -la /home/ec2-user/Jenkins-agent
                 """
             }
         }

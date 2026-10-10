@@ -1,6 +1,10 @@
 pipeline {
     agent any 
-
+    environment {
+        App = 'demo'
+        Project = 'Jenkins'
+        Author = 'Ganesh'
+    }
     stages {
         stage ("Printing hello World") {
             steps {
@@ -20,6 +24,12 @@ pipeline {
                 echo "Deploying something that doesnt even know"
             }
         }
+        stage ("Checking Env and Printing") {
+            steps {
+                echo "This is a ${App} and belongs to ${Project}, createt by ${Author}"
+            }
+        }
+
     }
     post {
     

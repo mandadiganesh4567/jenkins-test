@@ -18,9 +18,9 @@ pipeline {
                 sh """
                docker ps -a
                docker --version
-               docker build -t ganesh/docker .
+               docker build -t {IMAGE_NAME}:{IMAGE_TAG} .
                docker rm -f web || true
-               docker run -d --name web -p 8082:80 ganesh/docker 
+               docker run -d --name web -p 8082:80 {IMAGE_NAME}:{IMAGE_TAG}
                docker ps
               """
         }
@@ -31,22 +31,31 @@ pipeline {
             sh """
             aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com
 
-            docker tag ganesh/docker:latest ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/ganesh/docker:latest
+            docker tag {IMAGE_NAME}:{IMAGE_TAG} ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/{IMAGE_NAME}:{IMAGE_TAG}
 
-            docker push ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/ganesh/docker:latest
+            docker push ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/{IMAGE_NAME}:{IMAGE_TAG}
             """
     }
             }
         }
 
         stage('Trivy Scan') {
+    // steps {
+    //     sh """
+    //         image: "${IMAGE_NAME}:${IMAGE_TAG}"
+    //         severity: 'HIGH,CRITICAL',
+    //         format: 'table'
+    //     """
+    // }
     steps {
-        sh """
-            image: "${IMAGE_NAME}:${IMAGE_TAG}",
-            severity: 'HIGH,CRITICAL',
-            format: 'table'
-        """
-    }
+    sh """
+        trivy image \
+          --severity HIGH,CRITICAL \
+          --format table \
+          --no-progress \
+          ${IMAGE_NAME}:${IMAGE_TAG}
+    """
+}
 }
     }
     post {

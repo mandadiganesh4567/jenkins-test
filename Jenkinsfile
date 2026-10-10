@@ -9,6 +9,8 @@ pipeline {
           }
     environment {
         ACC_id = '816600798829'
+        IMAGE_NAME = 'ganesh/docker'
+        IMAGE_TAG = 'latest'
     }
     stages{
         stage("Image Build") {
@@ -36,6 +38,16 @@ pipeline {
     }
             }
         }
+
+        stage('Trivy Scan') {
+    steps {
+        trivy(
+            image: "${IMAGE_NAME}:${IMAGE_TAG}",
+            severity: 'HIGH,CRITICAL',
+            format: 'table'
+        )
+    }
+}
     }
     post {
     

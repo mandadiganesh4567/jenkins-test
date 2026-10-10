@@ -41,11 +41,11 @@ pipeline {
 
         stage('Trivy Scan') {
     steps {
-        trivy(
+        sh """
             image: "${IMAGE_NAME}:${IMAGE_TAG}",
             severity: 'HIGH,CRITICAL',
             format: 'table'
-        )
+        """
     }
 }
     }

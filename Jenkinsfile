@@ -37,7 +37,7 @@ pipeline {
         stage ("Checking Env and Printing") {
             steps {
                 sh """
-                echo "This is a ${App} and belongs to Project : ${Projects}, created by Author: ${Author}
+                echo "This is a ${App} and belongs to Project : ${Projects}, created by Author: ${Author}"
                 """
             }
         }

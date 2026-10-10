@@ -28,9 +28,10 @@ pipeline {
         stage ("Checking Env and Printing") {
             steps {
                 sh """
-                echo "This is a ${App} and belongs to ${Projects}, created by ${Author}"
-                sleep 10
+                
+                sleep 25
                 """
+                echo "This is a ${App} and belongs to ${Projects}, created by ${Author}"
             }
         }
 

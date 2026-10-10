@@ -18,9 +18,9 @@ pipeline {
                 sh """
                docker ps -a
                docker --version
-               docker build -t {IMAGE_NAME}:{IMAGE_TAG} .
+               docker build -t ganesh/docker .
                docker rm -f web || true
-               docker run -d --name web -p 8082:80 {IMAGE_NAME}:{IMAGE_TAG}
+               docker run -d --name web -p 8082:80 ganesh/docker 
                docker ps
               """
         }
@@ -31,7 +31,7 @@ pipeline {
             sh """
             aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com
 
-            docker tag {IMAGE_NAME}:{IMAGE_TAG} ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/ganesh/docker:latest
+            docker tag ganesh/docker:latest ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/ganesh/docker:latest
 
             docker push ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/ganesh/docker:latest
             """

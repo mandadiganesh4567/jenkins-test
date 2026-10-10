@@ -28,17 +28,17 @@ pipeline {
         }
         stage("Deploy") {
             steps{
+                sh """
                docker ps -a
                docker --version
+               """
             }
         }
         stage ("Checking Env and Printing") {
             steps {
                 sh """
-                
-                sleep 1
+                echo "This is a ${App} and belongs to Project : ${Projects}, created by Author: ${Author}
                 """
-                echo "This is a ${App} and belongs to Project : ${Projects}, created by Author: ${Author}"
             }
         }
 

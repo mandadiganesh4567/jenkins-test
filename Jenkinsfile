@@ -2,7 +2,7 @@ pipeline {
     agent { 
         label 'AGENT-1'
         }
-    options { timeout(time: 30, unit: 'SECONDS') }
+    options { timeout(time: 300, unit: 'SECONDS') }
     environment {
         App = 'demo'
         Projects = 'One Plus'
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh """
                 
-                sleep 30
+                sleep 1
                 """
                 echo "This is a ${App} and belongs to ${Projects}, created by ${Author}"
             }

@@ -2,7 +2,7 @@ pipeline {
     agent any 
     environment {
         App = 'demo'
-        Project = 'Jenkins'
+        Projects = 'One Plus'
         Author = 'Ganesh'
     }
     stages {
@@ -26,7 +26,7 @@ pipeline {
         }
         stage ("Checking Env and Printing") {
             steps {
-                echo "This is a ${App} and belongs to ${Project}, created by ${Author}"
+                echo "This is a ${App} and belongs to ${Projects}, created by ${Author}"
             }
         }
 

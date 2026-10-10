@@ -26,7 +26,7 @@ pipeline {
         }
         stage ("Checking Env and Printing") {
             steps {
-                echo "This is a ${App} and belongs to ${Project}, createt by ${Author}"
+                echo "This is a ${App} and belongs to ${Project}, created by ${Author}"
             }
         }
 

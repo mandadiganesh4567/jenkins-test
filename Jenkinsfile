@@ -31,9 +31,9 @@ pipeline {
             sh """
             aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com
 
-            docker tag {IMAGE_NAME}:{IMAGE_TAG} ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/{IMAGE_NAME}:{IMAGE_TAG}
+            docker tag {IMAGE_NAME}:{IMAGE_TAG} ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/ganesh/docker:latest
 
-            docker push ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/{IMAGE_NAME}:{IMAGE_TAG}
+            docker push ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/ganesh/docker:latest
             """
     }
             }

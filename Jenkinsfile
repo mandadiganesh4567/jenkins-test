@@ -31,7 +31,7 @@ pipeline {
         }
         always(){
             cleanWs()
-            cho " I always say Fuck You 3 times !!!"
+            echo " I always say Fuck You 3 times !!!"
         }
 
     }

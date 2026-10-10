@@ -2,7 +2,11 @@ pipeline {
     agent { 
         label 'AGENT-1'
         }
-    options { timeout(time: 300, unit: 'SECONDS') }
+    options {
+         timeout(time: 300, unit: 'SECONDS')
+         disableConcurrentBuilds()
+         timestamps()
+          }
     environment {
         App = 'demo'
         Projects = 'One Plus'
@@ -24,7 +28,8 @@ pipeline {
         }
         stage("Deploy") {
             steps{
-                echo "Deploying something that doesnt even know"
+               docker ps -a
+               docker --version
             }
         }
         stage ("Checking Env and Printing") {
@@ -33,7 +38,7 @@ pipeline {
                 
                 sleep 1
                 """
-                echo "This is a ${App} and belongs to ${Projects}, created by ${Author}"
+                echo "This is a ${App} and belongs to Project : ${Projects}, created by Author: ${Author}"
             }
         }
 
@@ -41,14 +46,14 @@ pipeline {
     post {
     
         success () {
-            echo "If it success I'll say It's success MF"
+            echo "If it success I'll say It's success Voila"
         }
         failure () {
-            echo "This is error please check again"
+            echo " Gotcha!! This is error please check again"
         }
         always(){
             cleanWs()
-            echo " I always say Fuck You 3 times !!!"
+            echo " I always say Hello Ganesh"
         }
 
     }

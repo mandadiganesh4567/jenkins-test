@@ -8,37 +8,34 @@ pipeline {
          timestamps()
           }
     environment {
-        App = 'demo'
-        Projects = 'One Plus'
-        Author = 'Ganesh'
+        ACC_id = '816600798829'
     }
-    stages {
-        stage ("Printing hello World") {
-            steps {
-                echo "Hello World"
-            }
-        }
-        stage ("Build") {
-            steps{
-                sh """
-                whoami
-                echo "building"
-                """
-            }
-        }
-        stage("Deploy") {
+        stage("Image Build") {
             steps{
                 sh """
                docker ps -a
                docker --version
-               docker build -t nginx:v1 .
-               docker run -d -p 8081:80 nginx:v1
+               docker build -t ganesh/docker .
+               docker rm -f web || true
+               docker run -d --name web -p 8081:80 ganesh/docker 
                docker ps
               """
         }
         }
+        stage("Deploy") {
+            steps{
+        withAWS(region:'us-east-1',credentials:'aws-creds') {
+            sh """
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com
+
+            docker tag ganesh/docker:latest ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/ganesh/docker:latest
+
+            docker push ${ACC_id}.dkr.ecr.us-east-1.amazonaws.com/ganesh/docker:latest
+            """
     }
-     
+            }
+        }
+}
     post {
     
         success () {

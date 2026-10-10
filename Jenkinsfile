@@ -29,7 +29,7 @@ pipeline {
             steps {
                 sh """
                 
-                sleep 25
+                sleep 30
                 """
                 echo "This is a ${App} and belongs to ${Projects}, created by ${Author}"
             }
